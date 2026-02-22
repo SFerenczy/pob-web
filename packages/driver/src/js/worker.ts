@@ -25,11 +25,11 @@ import {
 import type { SubScriptWorker } from "./sub";
 import WorkerObject from "./sub?worker";
 
-import indexDebug from "../../dist/index-debug.json";
 import indexRelease from "../../dist/index-release.json";
 
+// index-debug.json is only present in local dev builds; not needed for release.
 const fetchIndex = {
-  debug: indexDebug,
+  debug: {} as typeof indexRelease,
   release: indexRelease,
 };
 
