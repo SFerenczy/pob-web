@@ -136,6 +136,7 @@ export class DriverWorker {
 
   async start(
     build: "debug" | "release",
+    distBaseUrl: string,
     assetPrefix: string,
     fileSystemConfig: FilesystemConfig,
     onError: HostCallbacks["onError"],
@@ -165,7 +166,7 @@ export class DriverWorker {
       openUrl,
     };
 
-    const driver = (await import(`../../dist/${build}/driver.mjs`)) as {
+    const driver = (await import(/* @vite-ignore */ `${distBaseUrl}driver.mjs`)) as {
       default: EmscriptenModuleFactory<DriverModule>;
     };
     const module = await driver.default({
@@ -173,7 +174,7 @@ export class DriverWorker {
       printErr: console.warn,
     });
 
-    const fetchBase = import.meta.resolve(`../../dist/${build}/`);
+    const fetchBase = new URL(distBaseUrl, self.location.origin).href;
     const rootZip = await fetch(`${assetPrefix}/root.zip`);
     await zenfs.configure({
       mounts: {

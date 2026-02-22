@@ -43,6 +43,7 @@ export class Driver {
 
   constructor(
     readonly build: "debug" | "release",
+    readonly distBaseUrl: string,
     readonly assetPrefix: string,
     readonly hostCallbacks: HostCallbacks,
   ) {
@@ -62,6 +63,7 @@ export class Driver {
 
     return this.driverWorker.start(
       this.build,
+      this.distBaseUrl,
       this.assetPrefix,
       fileSystemConfig,
       Comlink.proxy(this.hostCallbacks.onError),
