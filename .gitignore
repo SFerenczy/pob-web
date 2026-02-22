@@ -2,7 +2,8 @@
 *.iml
 .idea/
 /work
-dist/
+dist/debug/
+dist/index-debug.json
 dist-pages/
 node_modules/
 build/
